@@ -182,6 +182,8 @@ unsigned		manual_arena_base;
 
 malloc_init_t malloc_init_state = malloc_init_uninitialized;
 
+int malloc_prof_init_state = 0; 
+
 /* False should be the common case.  Set to true to trigger initialization. */
 bool			malloc_slow = true;
 
@@ -2783,6 +2785,10 @@ je_posix_memalign(void **memptr, size_t alignment, size_t size) {
 	    *memptr);
 
 	return ret;
+}
+
+JEMALLOC_EXPORT int JEMALLOC_NOTHROW je_prof_init_state() {
+	return malloc_prof_init_state;
 }
 
 JEMALLOC_EXPORT JEMALLOC_ALLOCATOR JEMALLOC_RESTRICT_RETURN

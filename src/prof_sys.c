@@ -293,6 +293,7 @@ prof_hooks_init() {
 
 void
 prof_unwind_init() {
+	malloc_prof_init_state = 1;
 #ifdef JEMALLOC_PROF_LIBGCC
 	/*
 	 * Cause the backtracing machinery to allocate its internal
@@ -300,6 +301,7 @@ prof_unwind_init() {
 	 */
 	_Unwind_Backtrace(prof_unwind_init_callback, NULL);
 #endif
+	malloc_prof_init_state = 2;
 }
 
 static int
